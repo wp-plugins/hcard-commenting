@@ -13,7 +13,7 @@ Version: 0.5
 
 require_once('lib/hkit.class.php');
 
-function hcard_enabled_link() {
+function hcard_commenting_link() {
 	echo '<a id="hcard_enabled_link" href="http://microformats.org/wiki/hCard">(hCard Enabled)</a>' .
        '<span id="ajax-loader" style="display: none;">Loading hCard</span>';
 }
