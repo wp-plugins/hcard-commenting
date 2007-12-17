@@ -60,7 +60,7 @@ if  ( !class_exists('hCardId') ) {
      * Set the path for the plugin.
      **/
     static function get_path() {
-      $plugin = 'wp-hcard-commenting';
+      $plugin = 'hcard-commenting';
 
       $base = plugin_basename(__FILE__);
       if ($base != __FILE__) {
