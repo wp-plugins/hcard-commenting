@@ -2,7 +2,7 @@
 /*
 Plugin Name: WP-hCard-Commenting
 Plugin URI: http://notizblog.org/projects/wp-hcard-commenting/
-Description: This Plugin allows your users to easily fill out your comment forms using a hCard, it shoul work for the most themes, if not, you simply have to add &lt;?php hcard_commenting_link() ?&gt; to your theme where you want the link to be displayed.
+Description: This Plugin allows your users to easily fill out your comment forms using an hCard, it should work for the most themes without any changes, if not, simply add &lt;?php hcard_commenting_link() ?&gt; to your theme where you want the link to be displayed.
 Author: Matthias Pfefferle
 Author URI: http://notizblog.org
 Version: 0.5
