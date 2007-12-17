@@ -20,23 +20,23 @@ Idea from SignUp pages like [bragster.com](https://www.bragster.com/signup) or
 
 * It should work for the most themes (like K2 or Kubrik) without changes
 
-* For all others, simply add '<?php hcard_enabled_link() ?>' where you want
+* For all others, simply add `<?php hcard_enabled_link() ?>` where you want
 the link to be displayed
 
 Thats it
 
 == Frequently Asked Questions ==
 
-=== Which Microformats parser du you use? ===
+== Which Microformats parser du you use? ==
 
 I use the [hKit](http://allinthehead.com/hkit/) parser from Drew McLellan and the hKit
 service from [microformatic.com](http://tools.microformatic.com/help/xhtml/hkit/).
 
-=== Why do you also use the service ===
+== Why do you also use the service ==
 
 hKit needs PHP5, if you run PHP4.3 you can't run the hKit parser natively.
 
-=== What are the next steps? ===
+== What are the next steps? ==
 
 I would like to integrate the service to the public and admin register page.
 
