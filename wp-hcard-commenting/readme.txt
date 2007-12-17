@@ -6,7 +6,7 @@ Requires at least: 2.2.x
 Tested up to: 2.3.1
 Stable tag: 0.5
 
-This Plugin allows your users to easily fill out your comment forms using hCard.
+This Plugin allows your users to easily fill out your comment forms using an hCard.
 
 == Description ==
 
