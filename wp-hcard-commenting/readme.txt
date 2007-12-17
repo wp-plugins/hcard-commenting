@@ -16,7 +16,7 @@ Idea from SignUp pages like [bragster.com](https://www.bragster.com/signup) or
 
 == Installation ==
 
-* Upload the `hcard-commenting` to your **plugin** folder
+* Upload the `wp-hcard-commenting` to your **plugin** folder
 
 * It should work for the most themes (like K2 or Kubrik) without changes
 
