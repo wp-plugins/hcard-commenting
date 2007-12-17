@@ -20,7 +20,7 @@ Idea from SignUp pages like [bragster.com](https://www.bragster.com/signup) or
 
 * It should work for the most themes (like K2 or Kubrik) without changes
 
-* For all others, simply add '<?php hcard_enabled_link() ?>' where you want
+* For all others, simply add `<?php hcard_enabled_link() ?>` where you want
 the link to be displayed
 
 Thats it
