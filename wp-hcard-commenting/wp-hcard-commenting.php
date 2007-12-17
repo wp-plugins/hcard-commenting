@@ -1,14 +1,22 @@
 <?php
 /*
 Plugin Name: WP-hCard-Commenting
-Plugin URI: http://notizblog.org/projects/hcard-commenting
-Description: Use a hCard formatted website like an OpenID url
+Plugin URI: http://notizblog.org/projects/wp-hcard-commenting/
+Description: This Plugin allows your users to easily fill out 
+your comment forms using a hCard, it shoul work for the most themes,
+if not, you simply have to add &lt;?php ?&gt; to your theme where
+you want the link to be displayed.
 Author: Matthias Pfefferle
 Author URI: http://notizblog.org
-Version: 0.1
+Version: 0.5
 */
 
 require_once('lib/hkit.class.php');
+
+function hcard_enabled_link() {
+	echo '<a id="hcard_enabled_link" href="http://microformats.org/wiki/hCard">(hCard Enabled)</a>' .
+       '<span id="ajax-loader" style="display: none;">Loading hCard</span>';
+}
 
 if  ( !class_exists('hCardId') ) {
   class hCardId {
@@ -52,9 +60,7 @@ if  ( !class_exists('hCardId') ) {
     }
 
     /**
-     * Set the path for the plugin. This should allow users to rename the plugin directory
-     * if they choose to.  If unable to determine the directory (often due to symlinks),
-     * default to 'openid'
+     * Set the path for the plugin.
      **/
     static function get_path() {
       $plugin = 'wp-hcard-commenting';
