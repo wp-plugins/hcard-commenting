@@ -10,7 +10,7 @@ header('Content-Type: application/javascript; charset=utf-8');
 jQuery(document).ready( function() {
   jQuery('#commentform').addClass('hcard-commenting');
 
-  var html = ' <a id="hcard_enabled_link" href="http://microformats.org/wiki/hCard">(hCard Enabled)</a> '
+  var html = ' <a id="hcard_enabled_link" href="http://microformats.org/wiki/hCard">(import hCard)</a> '
            + ' <span id="ajax-loader" style="display: none;">Loading hCard</span> ';
   
   if (jQuery('#commentform a[@id=hcard_enabled_link]').length == 0) {
