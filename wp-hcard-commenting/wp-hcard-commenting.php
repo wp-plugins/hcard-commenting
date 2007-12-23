@@ -34,9 +34,13 @@ if  ( !class_exists('hCardId') ) {
     }
 
     function create_json($hcard) {
+      // take first hcard
       $hcard = $hcard[0];
       
+      // if there is more than one url
       $hcard["url"] = $this->get_url($hcard["url"]);
+      // if there is more than one email address, take the first
+      $hcard["email"] = is_array($hcard["email"]) ? $hcard["email"][0] : $hcard["email"];
       
       if ($hcard) {
         $jcard =  '{"vcard": {';
@@ -66,7 +70,7 @@ if  ( !class_exists('hCardId') ) {
     function register_js() {
       wp_enqueue_script( 'jquery' );
       wp_enqueue_script( 'openid' );
-      wp_enqueue_script( 'hcard-commenting', self::get_path() . '/js/hcard-commenting.js.php', array('jquery') );
+      wp_enqueue_script( 'hcard-commenting', $this->get_path() . '/js/hcard-commenting.js.php', array('jquery') );
     }
 
     function start() {
@@ -77,7 +81,7 @@ if  ( !class_exists('hCardId') ) {
     /**
      * Set the path for the plugin.
      **/
-    static function get_path() {
+    function get_path() {
       $plugin = 'wp-hcard-commenting';
 
       $base = plugin_basename(__FILE__);
@@ -96,7 +100,7 @@ if  ( !class_exists('hCardId') ) {
      * @action: wp_head, login_head
      **/
     function style() {
-      $css_path = self::get_path() . '/css/hcard-commenting.css';
+      $css_path = $this->get_path() . '/css/hcard-commenting.css';
       echo '
         <link rel="stylesheet" type="text/css" href="'.$css_path.'" />';
     }
