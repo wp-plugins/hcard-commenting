@@ -29,11 +29,15 @@ if  ( !class_exists('hCardId') ) {
         $hcard = file_get_contents('http://tools.microformatic.com/query/php/hkit/' . urldecode($url));
         $hcard = unserialize ($hcard);
       }
+      
       return $this->create_json($hcard);
     }
 
     function create_json($hcard) {
       $hcard = $hcard[0];
+      
+      $hcard["url"] = $this->get_url($hcard["url"]);
+      
       if ($hcard) {
         $jcard =  '{"vcard": {';
         $jcard .= '"fn": "'.$hcard["fn"].'", ';
@@ -44,7 +48,21 @@ if  ( !class_exists('hCardId') ) {
       }
       return $jcard;
     }
-
+    
+    function get_url($url) {
+    	if (is_array($url)) {
+    		/*foreach ($url as $u) {
+    			echo $u;
+    			if (preg_match_all("((http://|https://)[^ ]+)", $u, $match)) {
+    		    return $u;
+    			}
+    		}*/
+        return $url[0];
+    	} else {
+    		return $url;
+    	}
+    }
+    
     function register_js() {
       wp_enqueue_script( 'jquery' );
       wp_enqueue_script( 'openid' );
