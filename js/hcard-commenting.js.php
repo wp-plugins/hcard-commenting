@@ -21,18 +21,21 @@ jQuery(document).ready( function() {
     } else {
       jQuery.ajax({
         type: "GET",
-        url: "<?php echo get_option('siteurl'); ?>/index.php",
+        url: "<?php echo parse_url(get_option('siteurl'), PHP_URL_PATH); ?>/index.php",
         data: {hcard_url: url},
         dataType: "json",
-        timeout: 5000,
+        timeout: 10000,
         error: function(XMLHttpRequest, textStatus, errorThrown) { alert(textStatus + ": " + errorThrown); },
         success: function(data) {
-        	if (data.vcard.fn != "")
+          if (data.vcard.fn != "") {
             jQuery("#commentform input[@id=author]").val(data.vcard.fn);
-          if (data.vcard.email != "")
+          }
+          if (data.vcard.email != "") {
             jQuery("#commentform input[@id=email]").val(data.vcard.email);
-          if (data.vcard.url != "")
+          }
+          if (data.vcard.url != "") {
             jQuery("#commentform input[@id=url]").val(data.vcard.url);
+          }
         }
       });
     }
