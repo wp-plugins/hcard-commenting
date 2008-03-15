@@ -29,20 +29,18 @@ Thats it
 
 == Frequently Asked Questions ==
 
-== Which Microformats parser du you use? ==
+== Which Microformats parser do you use? ==
 
 I use the [hKit](http://allinthehead.com/hkit/) parser from Drew McLellan and the hKit
 service from [microformatic.com](http://tools.microformatic.com/help/xhtml/hkit/).
 
-hCard-Commenting supports [representative hCards](http://microformats.org/wiki/representative-hcard)
-
-== Why do you also use the hKit service ==
+== Why do you also use the service ==
 
 hKit needs PHP5, if you run PHP4.3 you can't run the hKit parser natively.
 
 == What are the next steps? ==
 
-Implementing some kind of avatar service like hAvatar.
+hCard.photo as avatar, like hAvatar.
 
 == Screenshots ==
 
