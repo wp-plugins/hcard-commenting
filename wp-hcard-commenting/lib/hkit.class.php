@@ -2,8 +2,8 @@
 
 	/* 
 	
-	hKit Library for PHP5 - a generic library for parsing Microformats
-	Copyright (C) 2006  Drew McLellan
+	hKit Library for PHP5 - a generic library for parsing microformats
+	Copyright (C) 2006 Drew McLellan
 
 	This library is free software; you can redistribute it and/or
 	modify it under the terms of the GNU Lesser General Public
@@ -24,7 +24,12 @@
 		
 	Contributors:
 		Scott Reynen - http://www.randomchaos.com/
-		
+		Steve Ivy - http://redmonk.net/
+	
+	New	
+		URLs now loaded with cURL when available
+		Location header redirects followed when cURL is available
+		added limited support for different URI schemes - thanks to Steve Ivy.
 	Version 0.5, 22-Jul-2006
 		fixed by-ref issue cropping up in PHP 5.0.5
 		fixed a bug with a@title
@@ -356,7 +361,18 @@
 			$this->url	= $url;
 			
 			if ($this->tidy_mode == 'proxy' && $this->tidy_proxy != ''){
-				$url	= $this->tidy_proxy . $url;
+				$url	= $this->tidy_proxy . urlencode($url);
+			}
+		
+			if (function_exists('curl_init')){
+				$ch 	= curl_init();
+				curl_setopt($ch, CURLOPT_URL, $url);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_TIMEOUT, 10); // timeout after n secs (prevent large files!)
+				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+				$result = curl_exec($ch);
+				curl_close($ch);
+				return $result;
 			}
 		
 			return @file_get_contents($url);
@@ -392,7 +408,7 @@
 			$base 	= $this->base;
 			$url	= $this->url;
 			
-			if ($base != '' &&  strpos($base, '://') !== false)
+			if ($base != '' && strpos($base, '://') !== false)
 				$url	= $base;
 			
 			$r		= parse_url($url);
@@ -403,7 +419,16 @@
 			$file	= explode('/', $filepath);
 			$new	= array('');
 
-			if (strpos($filepath, '://') !== false || strpos($filepath, 'data:') !== false){
+			if (strpos($filepath, '://') !== false || 
+ 			    strpos($filepath, 'data:') !== false ||
+ 				strpos($filepath, 'aim:') !== false ||
+ 				strpos($filepath, 'ymsgr:') !== false ||
+ 				strpos($filepath, 'skype:') !== false ||
+ 				strpos($filepath, 'im:') !== false ||
+ 				strpos($filepath, 'msnim:') !== false ||
+ 				strpos($filepath, 'webcal:') !== false ||
+ 				strpos($filepath, 'xmpp:') !== false)
+			{
 				return $filepath;
 			}
 

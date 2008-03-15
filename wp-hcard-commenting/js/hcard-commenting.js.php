@@ -1,8 +1,5 @@
 <?php
 require_once('./../../../../wp-config.php');
-require_once('./../wp-hcard-commenting.php');
-
-$path = hCardId::get_path();
 
 header('Content-Type: application/javascript; charset=utf-8');
 ?>
@@ -24,9 +21,11 @@ jQuery(document).ready( function() {
     } else {
       jQuery.ajax({
         type: "GET",
-        url: "<?php echo $path."/wp-hcard-commenting.php"; ?>",
-        data: {url: url},
+        url: "<?php echo get_option('siteurl'); ?>/index.php",
+        data: {hcard_url: url},
         dataType: "json",
+        timeout: 5000,
+        error: function(XMLHttpRequest, textStatus, errorThrown) { alert(textStatus + ": " + errorThrown); },
         success: function(data) {
         	if (data.vcard.fn != "")
             jQuery("#commentform input[@id=author]").val(data.vcard.fn);
@@ -43,10 +42,12 @@ jQuery(document).ready( function() {
 
   jQuery("#ajax-loader").ajaxStart(function(){
     jQuery(this).show();
+    jQuery('#hcard_enabled_link').hide();
   });
 
   jQuery("#ajax-loader").ajaxStop(function(){
     jQuery(this).hide();
+    jQuery('#hcard_enabled_link').show();
   });
 
   jQuery('#commentform input[@id=url]').click( function() {
