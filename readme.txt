@@ -3,8 +3,8 @@ Contributors: pfefferle
 Donate link: http://notizblog.org
 Tags: hCard Commenting, hCard, OpenID, Auth, Commenting, Comments, Microformats
 Requires at least: 2.2.x
-Tested up to: 2.3.1
-Stable tag: 0.5.2
+Tested up to: 2.3.3
+Stable tag: 0.6
 
 This Plugin allows your users to easily fill out your comment forms using an hCard.
 
@@ -32,13 +32,15 @@ Thats it
 I use the [hKit](http://allinthehead.com/hkit/) parser from Drew McLellan and the hKit
 service from [microformatic.com](http://tools.microformatic.com/help/xhtml/hkit/).
 
-== Why do you also use the service ==
+hCard-Commenting supports [representative hCards](http://microformats.org/wiki/representative-hcard)
+
+== Why do you also use the hKit service ==
 
 hKit needs PHP5, if you run PHP4.3 you can't run the hKit parser natively.
 
 == What are the next steps? ==
 
-I would like to integrate the service to the public and admin register page.
+Implementing some kind of avatar service like hAvatar.
 
 == Screenshots ==
 
