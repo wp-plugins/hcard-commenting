@@ -10,7 +10,7 @@ This Plugin allows your users to easily fill out your comment forms using an hCa
 
 == Description ==
 
-This Plugin allows your users to easily fill out your comment forms using hCard. I got this
+This Plugin allows your visitors to easily fill out your comment forms using an hCard. I got this
 Idea from SignUp pages like [bragster.com](https://www.bragster.com/signup) or 
 [getsatisfaction.com](http://getsatisfaction.com/people/new).
 
