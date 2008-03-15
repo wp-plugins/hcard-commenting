@@ -53,7 +53,7 @@ class hCardId {
 
   	$url = $wp_query->query_vars['hcard_url'];
     
-    $debug = true;
+    $debug = false;
 
     $status = '200';
     $ct = 'text/plain';
