@@ -52,8 +52,6 @@ class hCardId {
   	global $wp_query, $wp_version;
 
   	$url = $wp_query->query_vars['hcard_url'];
-    
-    $debug = false;
 
     $status = '200';
     $ct = 'text/plain';
@@ -85,7 +83,7 @@ class hCardId {
         }
 
         $o = hCardId::create_json($repcard);
-        $ct = ($debug) ? 'text/plain' : 'application/json';
+        $ct = 'application/json';
       } else {
         $o = '404 Not Found';
         $status = '404';
