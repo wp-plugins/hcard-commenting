@@ -5,7 +5,7 @@ Plugin URI: http://notizblog.org/projects/wp-hcard-commenting/
 Description: This Plugin allows your users to easily fill out your comment forms using an hCard, it should work for the most themes without any changes, if not, simply add &lt;?php hcard_commenting_link() ?&gt; to your theme where you want the link to be displayed.
 Author: Matthias Pfefferle
 Author URI: http://notizblog.org
-Version: 0.6
+Version: 0.6.1
 */
 
 if (!class_exists('hKit')) {
@@ -21,7 +21,7 @@ if (isset($wp_version)) {
   add_filter('query_vars', array('hCardId', 'query_vars'));
   add_action('parse_query', array('hCardId', 'parse_hcard'));
   add_action('init', array('hCardId', 'init'));
-  add_filter('generate_rewrite_rules', array('hCardId', 'rewrite_rules'));
+  //add_filter('generate_rewrite_rules', array('hCardId', 'rewrite_rules'));
   
   add_action('wp_head', array('hCardId', 'style'), 5);
 }
@@ -35,6 +35,7 @@ class hCardId {
     $wp_rewrite->flush_rules();
 
     wp_enqueue_script( 'jquery' );
+    wp_enqueue_script( 'openid' );
     wp_enqueue_script( 'hcard-commenting', hCardId::get_path() . '/js/hcard-commenting.js.php', array('jquery') );
   }
   
@@ -83,13 +84,11 @@ class hCardId {
         }
 
         $o = hCardId::create_json($repcard);
-        $ct = 'application/json';
+        $ct = 'application/x-javascript';
       } else {
         $o = '404 Not Found';
         $status = '404';
       }
-      
-      $header = 'Content-type: '.$ct;
 
       switch($status) {
         case '400':
@@ -99,11 +98,13 @@ class hCardId {
           $header = "HTTP/1.0 404 Not Found";
           break;
         case '200':
-          default:
+          $header = 'Content-type: '.$ct.' charset=utf-8';
+          break;
+        default:
           $header = "HTTP/1.0 200 OK";
           break;
       }
-    
+      
       header($header);
       echo $o;
       exit;
