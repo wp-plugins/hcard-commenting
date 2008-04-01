@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: WP-hCard-Commenting
+Plugin Name: WP-hCard-Mapping
 Plugin URI: http://notizblog.org/projects/wp-hcard-commenting/
-Description: This Plugin allows your users to easily fill out your comment forms using an hCard, it should work for the most themes without any changes, if not, simply add &lt;?php hcard_commenting_link() ?&gt; to your theme where you want the link to be displayed.
+Description: This is a special version of <a href="http://notizblog.org/projects/wp-hcard-commenting/">wp-hcard-commenting</a>, using the <a href="http://lib.omnia-computing.de/hcardmapper">hCardMapper</a> by <a href="http://www.omnia-computing.de">Gordon Oheim</a>.
 Author: Matthias Pfefferle
 Author URI: http://notizblog.org
-Version: 0.6.1
+Version: 0.1
 */
 
 if (!class_exists('hKit')) {
@@ -17,22 +17,22 @@ if (isset($wp_version)) {
   add_action('parse_query', array('hCardId', 'parse_hcard'));
   add_action('init', array('hCardId', 'init'));
   //add_filter('generate_rewrite_rules', array('hCardId', 'rewrite_rules'));
-  
-  add_action('wp_head', array('hCardId', 'head'), 5);
+
+  add_action('wp_head', array('hCardId', 'head'), 10);
 }
 
 class hCardId {
 
   function hCardId() { }
-  
+
   function init() {
     global $wp_rewrite;
     $wp_rewrite->flush_rules();
 
-    wp_enqueue_script( 'prototype' );
-    wp_enqueue_script( 'hcard-commenting', hCardId::get_path() . '/js/hcardmapper.js', array('prototype') );
+    //wp_enqueue_script( 'prototype', 'scriptaculous-effects' );
+    wp_enqueue_script( 'hcard-mapper', hCardId::get_path() . '/js/hcardmapper.js', array('prototype', 'scriptaculous-effects') );
   }
-  
+
   /**
    * Define the rewrite rules
    */
@@ -42,7 +42,7 @@ class hCardId {
     );
     $wp_rewrite->rules = $new_rules + $wp_rewrite->rules;
   }
-  
+
   function parse_hcard() {
   	global $wp_query, $wp_version;
 
@@ -50,7 +50,7 @@ class hCardId {
 
     $status = '200';
     $ct = 'text/plain';
-    
+
     if( isset( $url )) {
       if (phpversion() > 5) {
         $hkit = new hKit();
@@ -98,7 +98,7 @@ class hCardId {
           $header = "HTTP/1.0 200 OK";
           break;
       }
-      
+
       header($header);
       echo $o;
       exit;
@@ -110,18 +110,10 @@ class hCardId {
     $hcard["url"] = hCardId::get_url($hcard["url"]);
     // if there is more than one email address, take the first
     $hcard["email"] = is_array($hcard["email"]) ? $hcard["email"][0] : $hcard["email"];
-      
-    if ($hcard) {
-      $jcard =  '{"vcard": {';
-      $jcard .= '"fn": "'.$hcard["fn"].'", ';
-      $jcard .= '"email": "'.$hcard["email"].'", ';
-      $jcard .= '"url": "'.$hcard["url"].'"}}';
-    } else {
-      $jcard = null;
-    }
-    return $jcard;
+
+    return json_encode($hcard);
   }
-    
+
   function get_url($url) {
     if (is_array($url)) {
       /*foreach ($url as $u) {
@@ -158,16 +150,39 @@ class hCardId {
    * @action: wp_head, login_head
    **/
   function head() {
-    $css_path = hCardId::get_path() . '/css/hcardmapper.css';
-    echo '<link rel="stylesheet" type="text/css" href="'.$css_path.'" />';
+    if (is_single()) {
+      $css_path = hCardId::get_path() . '/css/hcardmapper.css';
+      echo '<link rel="stylesheet" type="text/css" href="'.$css_path.'" />';
+
+      wp_print_scripts( array( 'prototype', 'scriptaculous-effects', 'hcard-mapper' ));
+?>
+  <script type="text/javascript">
+    <!--
+    Event.observe(window, 'load', function() {
+      hcr = new com.omniacomputing.HCardMapper({
+        register: true,
+        proxy: '<?php echo parse_url(get_option('siteurl'), PHP_URL_PATH); ?>/index.php?hcard_url=',
+        insertBelowEl: 'respond',
+        loadIcon: '<?php echo hCardId::get_path(); ?>/img/ajax-loader.gif',
+        mappings: {
+          fn: 'author',
+          email: 'email',
+          url: 'url'
+        }
+      })
+    });
+    //-->
+  </script>
+<?php
+    }
   }
-    
+
   /**
    * Add 'hcard_url' as a valid query variables.
    */
   function query_vars($vars) {
     $vars[] = 'hcard_url';
-  
+
     return $vars;
   }
 }
