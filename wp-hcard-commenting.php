@@ -3,7 +3,7 @@
 Plugin Name: WP-hCard-Mapping
 Plugin URI: http://notizblog.org/projects/wp-hcard-commenting/
 Description: This is a special version of <a href="http://notizblog.org/projects/wp-hcard-commenting/">wp-hcard-commenting</a>, using the <a href="http://lib.omnia-computing.de/hcardmapper">hCardMapper</a> by <a href="http://www.omnia-computing.de">Gordon Oheim</a>.
-Author: Matthias Pfefferle, Gordon Oheim
+Author: Matthias Pfefferle
 Author URI: http://notizblog.org
 Version: 0.1
 */
