@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: WP-hCard-Mapping
+Plugin Name: WP-hCardMapping
 Plugin URI: http://notizblog.org/projects/wp-hcard-commenting/
 Description: This is a special version of <a href="http://notizblog.org/projects/wp-hcard-commenting/">wp-hcard-commenting</a>, using the <a href="http://lib.omnia-computing.de/hcardmapper">hCardMapper</a> by <a href="http://www.omnia-computing.de">Gordon Oheim</a>.
 Author: Matthias Pfefferle
