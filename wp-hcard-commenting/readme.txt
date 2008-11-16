@@ -3,7 +3,7 @@ Contributors: pfefferle
 Donate link: http://notizblog.org
 Tags: hCard Commenting, hCard, OpenID, Auth, Commenting, Comments, Microformats
 Requires at least: 2.2.x
-Tested up to: 2.3.3
+Tested up to: 2.6.3
 Stable tag: 0.6.2
 
 This Plugin allows your users to easily fill out your comment forms using an hCard.
