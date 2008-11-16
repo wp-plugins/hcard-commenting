@@ -24,7 +24,7 @@ jQuery(document).ready( function() {
         url: "<?php echo parse_url(get_option('siteurl'), PHP_URL_PATH); ?>/index.php",
         data: {hcard_url: url},
         dataType: "json",
-        timeout: 10000,
+        timeout: 25000,
         error: function(XMLHttpRequest, textStatus, errorThrown) { alert(textStatus + ": " + errorThrown); },
         success: function(data) {
           if (data.vcard.fn != "") {
