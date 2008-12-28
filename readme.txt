@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== hCard Commenting ===
 Contributors: pfefferle
 Donate link: http://notizblog.org
 Tags: hCard Commenting, hCard, OpenID, Auth, Commenting, Comments, Microformats
@@ -18,7 +18,7 @@ hCard-Commenting now supports [representative hCards](http://microformats.org/wi
 
 == Installation ==
 
-* Upload the `wp-hcard-commenting` to your **plugin** folder
+* Upload the `hcard-commenting` folder to your **plugin** folder
 
 * It should work for the most themes (like K2 or Kubrik) without changes
 
@@ -29,19 +29,19 @@ Thats it
 
 == Frequently Asked Questions ==
 
-== Which Microformats parser do you use? ==
+= Which Microformats parser do you use? =
 
 I use the [hKit](http://allinthehead.com/hkit/) parser from Drew McLellan and the hKit
 service from [microformatic.com](http://tools.microformatic.com/help/xhtml/hkit/).
 
-== Why do you also use the service ==
+= Why do you also use the service =
 
 hKit needs PHP5, if you run PHP4.3 you can't run the hKit parser natively.
 
-== What are the next steps? ==
+= What are the next steps? =
 
 hCard.photo as avatar, like hAvatar.
 
-== Screenshots ==
+= Screenshots =
 
 You can find a demo here: [notizBlog.org](http://notizblog.org).

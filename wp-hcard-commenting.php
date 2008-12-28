@@ -5,11 +5,11 @@ Plugin URI: http://notizblog.org/projects/wp-hcard-commenting/
 Description: This Plugin allows your users to easily fill out your comment forms using an hCard, it should work for the most themes without any changes, if not, simply add &lt;?php hcard_commenting_link() ?&gt; to your theme where you want the link to be displayed.
 Author: Matthias Pfefferle
 Author URI: http://notizblog.org
-Version: 0.6.2
+Version: 0.6.1
 */
 
 if (!class_exists('hKit')) {
-  include_once('lib/hkit.class.php');
+  require_once('lib/hkit.class.php');
 }
 
 function hcard_commenting_link() {
@@ -18,17 +18,17 @@ function hcard_commenting_link() {
 }
 
 if (isset($wp_version)) {
-  add_filter('query_vars', array('hCardId', 'query_vars'));
-  add_action('parse_query', array('hCardId', 'parse_hcard'));
-  add_action('init', array('hCardId', 'init'));
-  //add_filter('generate_rewrite_rules', array('hCardId', 'rewrite_rules'));
+  add_filter('query_vars', array('hCardCommenting', 'query_vars'));
+  add_action('parse_query', array('hCardCommenting', 'parse_hcard'));
+  add_action('init', array('hCardCommenting', 'init'));
+  //add_filter('generate_rewrite_rules', array('hCardCommenting', 'rewrite_rules'));
   
-  add_action('wp_head', array('hCardId', 'style'), 5);
+  add_action('wp_head', array('hCardCommenting', 'style'), 5);
 }
 
-class hCardId {
+class hCardCommenting {
 
-  function hCardId() { }
+  function hCardCommenting() { }
   
   function init() {
     global $wp_rewrite;
@@ -36,7 +36,7 @@ class hCardId {
 
     wp_enqueue_script( 'jquery' );
     wp_enqueue_script( 'openid' );
-    wp_enqueue_script( 'hcard-commenting', hCardId::get_path() . '/js/hcard-commenting.js.php', array('jquery') );
+    wp_enqueue_script( 'hcard-commenting', hCardCommenting::get_path() . '/js/hcard-commenting.js.php', array('jquery') );
   }
   
   /**
@@ -83,7 +83,7 @@ class hCardId {
           $repcard = $result[0];
         }
 
-        $o = hCardId::create_json($repcard);
+        $o = hCardCommenting::create_json($repcard);
         $ct = 'application/x-javascript';
       } else {
         $o = '404 Not Found';
@@ -113,7 +113,7 @@ class hCardId {
 
   function create_json($hcard) {
     // if there is more than one url
-    $hcard["url"] = hCardId::get_url($hcard["url"]);
+    $hcard["url"] = hCardCommenting::get_url($hcard["url"]);
     // if there is more than one email address, take the first
     $hcard["email"] = is_array($hcard["email"]) ? $hcard["email"][0] : $hcard["email"];
       
@@ -144,9 +144,9 @@ class hCardId {
 
   /**
    * Set the path for the plugin.
-   **/
+   */
   function get_path() {
-    $plugin = 'wp-hcard-commenting';
+    $plugin = 'hcard-commenting';
 
     $base = plugin_basename(__FILE__);
     if ($base != __FILE__) {
@@ -162,9 +162,9 @@ class hCardId {
    * Include internal stylesheet.
    *
    * @action: wp_head, login_head
-   **/
+   */
   function style() {
-    $css_path = hCardId::get_path() . '/css/hcard-commenting.css';
+    $css_path = hCardCommenting::get_path() . '/css/hcard-commenting.css';
     echo '<link rel="stylesheet" type="text/css" href="'.$css_path.'" />';
   }
     
